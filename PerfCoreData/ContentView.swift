@@ -29,14 +29,17 @@ struct ContentView: View {
                         scrollToBottom(proxy: proxy)
                     }
                 }
-                Button(action: addItems) {
-                    Text("Add 100 Items")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                HStack {
+                    Button(action: addItems) {
+                        Text("Add 100 Items")
+                    }
+                    .buttonStyle(.borderedProminent)                     .buttonBorderShape(.roundedRectangle)
+
+                    Button(role: .destructive, action: deleteAllItems) {
+                        Text("Delete All")
+                    }
+                    .buttonStyle(.bordered)                     .buttonBorderShape(.roundedRectangle)
                 }
-                .padding()
                 .navigationTitle("CoreData")
             }
         }
@@ -54,11 +57,23 @@ struct ContentView: View {
                 do {
                     try viewContext.save()
                 } catch {
-                    // Handle error
                     let nsError = error as NSError
                     fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
                 }
             }
+        }
+    }
+
+    private func deleteAllItems() {
+        for item in items {
+            viewContext.delete(item)
+        }
+
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 
