@@ -30,7 +30,7 @@ struct ContentView: View {
                     }
                 }
                 Button(action: addItems) {
-                    Text("Add 50 Items")
+                    Text("Add 100 Items")
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
@@ -47,7 +47,7 @@ struct ContentView: View {
             // Determine the current maximum order value
             let maxOrder = items.last?.order ?? 0
 
-            for i in 1...50 {
+            for i in 1...100 {
                 let newItem = Item(context: viewContext)
                 newItem.order = maxOrder + Int64(i)
 
